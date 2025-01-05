@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <title>Откога чакам Стефчо да потвърди за бири</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+    #timer {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Откога чакам Стефчо да потвърди за бири</h1>
+  
+  <div id="timer">Зареждане...</div>
+  
+  <script>
+    // Определяме стартовата дата/час (4 януари 2025, 20:00 българско време).
+    // За опростяване, фиксираме GMT+2 (зимно време). При нужда коригирайте спрямо лятно часово време.
+    const startTime = new Date("January 4, 2025 20:00:00 GMT+2");
+
+    function updateTimer() {
+      const now = new Date();
+      const diffMs = now - startTime; // Разлика в милисекунди
+
+      if (diffMs < 0) {
+        // Ако разликата е отрицателна, значи още не сме стигнали 4 януари 2025, 20:00.
+        document.getElementById("timer").textContent = "Още не е започнало отброяването!";
+        return;
+      }
+
+      // Преобразуваме общите милисекунди в дни, часове, минути, секунди
+      let seconds = Math.floor(diffMs / 1000);
+      let minutes = Math.floor(seconds / 60);
+      let hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+
+      hours = hours % 24;
+      minutes = minutes % 60;
+      seconds = seconds % 60;
+
+      // Изписваме стойностите
+      const timerString = 
+        days + " дни, " + 
+        hours + " часа, " + 
+        minutes + " минути, " + 
+        seconds + " секунди";
+
+      document.getElementById("timer").textContent = timerString;
+    }
+
+    // Ъпдейт на всеки 1 секунда
+    setInterval(updateTimer, 1000);
+    // Първоначално извикване, за да не чакаме 1 сек.
+    updateTimer();
+  </script>
+</body>
+</html>
